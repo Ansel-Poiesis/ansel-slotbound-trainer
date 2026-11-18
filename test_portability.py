@@ -1,11 +1,15 @@
 """Publication regressions: no installation dependency; safe portable path/save handling."""
 import json
+import contextlib
+import hashlib
+import io
 import os
 from pathlib import Path
 import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
+import zipfile
 from unittest import mock
 
 import game_paths
@@ -13,6 +17,30 @@ import save_backend
 
 
 class PortabilityTests(unittest.TestCase):
+    def test_release_zip_has_root_executable_and_matching_provenance(self):
+        from tools import package_release
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "dist").mkdir()
+            executable = root / "dist/AnselSlotboundTrainer.exe"
+            executable.write_bytes(b"MZ-synthetic-package-fixture")
+            for name in ("README.md", "CHANGELOG.md", "LICENSE", "THIRD_PARTY_NOTICES.md"):
+                (root / name).write_text("package fixture", encoding="utf-8")
+            (root / "THIRD_PARTY_LICENSES").mkdir()
+            (root / "THIRD_PARTY_LICENSES/NOTICE.txt").write_text("fixture notice", encoding="utf-8")
+            with mock.patch.object(package_release, "ROOT", root), \
+                 mock.patch.object(package_release.subprocess, "check_output", side_effect=["a" * 40, ""]), \
+                 contextlib.redirect_stdout(io.StringIO()):
+                package_release.main()
+            archive = next((root / "release").glob("*.zip"))
+            with zipfile.ZipFile(archive) as bundle:
+                self.assertIn("AnselSlotboundTrainer.exe", bundle.namelist())
+                self.assertTrue(all("\\" not in name for name in bundle.namelist()))
+                self.assertIn("THIRD_PARTY_LICENSES/NOTICE.txt", bundle.namelist())
+                provenance = json.loads(bundle.read("provenance.json"))
+                self.assertEqual(provenance["source_commit"], "a" * 40)
+                self.assertEqual(provenance["executable_sha256"], hashlib.sha256(bundle.read("AnselSlotboundTrainer.exe")).hexdigest())
+
     def test_directory_picker_recovers_from_stale_installation_path(self):
         from trainer_gui import Trainer
         owner = SimpleNamespace(log_message=mock.Mock(), show_error=mock.Mock())
@@ -35,7 +63,7 @@ class PortabilityTests(unittest.TestCase):
 
     def test_engine_import_does_not_load_archive_or_decompiler(self):
         import trainer_engine
-        self.assertEqual(trainer_engine.VERSION, "4.4.0")
+        self.assertEqual(trainer_engine.VERSION, "4.4.1")
         self.assertNotIn("sbmod_core", sys.modules)
         self.assertNotIn("pefile", sys.modules)
         self.assertNotIn("cryptography", sys.modules)

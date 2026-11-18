@@ -6,7 +6,7 @@ import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "4.4.0"
+VERSION = "4.4.1"
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
     archive = out / ("Ansel-Slotbound-Trainer-" + VERSION + "-windows-x64.zip")
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as bundle:
         for path in files:
-            bundle.write(path, str(path.relative_to(ROOT)).removeprefix("dist/"))
+            bundle.write(path, path.relative_to(ROOT).as_posix().removeprefix("dist/"))
         bundle.write(provenance, "provenance.json")
     sums = "\n".join(hashlib.sha256(path.read_bytes()).hexdigest() + "  " + path.name
                      for path in (archive, provenance, executable)) + "\n"

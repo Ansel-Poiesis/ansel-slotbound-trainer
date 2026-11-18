@@ -1,6 +1,6 @@
 # Ansel Slotbound Trainer · 转运军团开源修改器
 
-**Windows x64 · v4.4.0 · MIT · 简体中文界面**
+**Windows x64 · v4.4.1 · MIT · 简体中文界面**
 
 适用于《转运军团》Slotbound 的独立开源修改器，作者 **Ansel**。
 源码、图标源文件、测试和构建配置均公开；游戏需自行合法获取。

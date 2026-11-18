@@ -12,7 +12,7 @@ from sbmod_params import CONSTANTS_EDITS
 from symbol_assets import SYMBOL_NAMES
 
 
-VERSION = "4.4.0"
+VERSION = "4.4.1"
 SYMBOLS = SYMBOL_NAMES
 GRADES = {"普通": "normal", "高级": "advanced", "稀有": "rare",
           "传说": "legendary", "棱镜": "prism"}
