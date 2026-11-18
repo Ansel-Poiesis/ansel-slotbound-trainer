@@ -1,0 +1,11 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.svg text eol=lf
+*.yml text eol=lf
+*.spec text eol=lf
+*.png binary
+*.ico binary
+THIRD_PARTY_LICENSES/** -whitespace

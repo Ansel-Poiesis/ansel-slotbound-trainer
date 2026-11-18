@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+release/
+evidence/
+*.log
+settings.json
+*.dat
+*.dll
+*.exe
+*.luac
+*.dmp

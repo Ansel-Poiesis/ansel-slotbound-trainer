@@ -1,0 +1,25 @@
+name: Windows checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          architecture: x64
+      - name: Test without proprietary game files
+        run: python -X utf8 -m unittest discover -v
+      - name: Windowless verification entry
+        run: python -X utf8 trainer_gui.py --verify-runtime --result evidence/ci.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-checks
+          path: evidence/ci.*

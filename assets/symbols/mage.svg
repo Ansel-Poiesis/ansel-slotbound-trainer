@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<!-- Original Ansel artwork, MIT License -->
+<polyline points="7,28 22,10" fill="none" stroke="#ffa34a" stroke-width="3"/>
+<polygon points="24,2 30,9 23,16 16,9" fill="#c7a1f1"/>
+<polygon points="24,4 25,9 21,11 19,9" fill="#edf0e8"/>
+<polyline points="5,7 5,13" fill="none" stroke="#ffa34a" stroke-width="2"/>
+<polyline points="2,10 8,10" fill="none" stroke="#ffa34a" stroke-width="2"/>
+<polyline points="12,2 12,6" fill="none" stroke="#edf0e8" stroke-width="1"/>
+</svg>

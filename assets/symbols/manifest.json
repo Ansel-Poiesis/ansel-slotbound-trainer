@@ -1,0 +1,38 @@
+{
+  "author": "Ansel",
+  "license": "MIT",
+  "source": "tools/generate_icons.py",
+  "provenance": "Original code-native vector artwork; no extracted game assets",
+  "symbols": {
+    "W": {
+      "name": "战士",
+      "file": "warrior.png",
+      "sha256": "aaa60fd6f55989e9692319ec92fd7b8433949c1b475f776856469f7a324cc218"
+    },
+    "A": {
+      "name": "弓手",
+      "file": "archer.png",
+      "sha256": "24b6f689a1d06041c414625a4da6ee1e3deec9e26f6854ec60c13ecb23faa1d8"
+    },
+    "S": {
+      "name": "枪兵",
+      "file": "spear.png",
+      "sha256": "dd44efbceb565118196eb5b9f821a8ffe9ffe4c2e3b2668309981b5ed252abb8"
+    },
+    "M": {
+      "name": "法师",
+      "file": "mage.png",
+      "sha256": "8040e822c1a007169ae8b45cee786b202c71fe93e43876ed9d0c92c4de227789"
+    },
+    "D": {
+      "name": "决斗者",
+      "file": "duelist.png",
+      "sha256": "ea7c62d84d50294fdfa815a65350eef4a5475dd3e3016ed22ddb861e73cb78de"
+    },
+    "H": {
+      "name": "骑兵",
+      "file": "horse.png",
+      "sha256": "1a15684969ffb7587e69bcb100d28ab4e315f9049b970a6fd3337e88a9373892"
+    }
+  }
+}
