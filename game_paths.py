@@ -96,10 +96,10 @@ def find_game_directory():
         if saved.get("game_directory"):
             candidate = Path(saved["game_directory"])
             if (candidate / "Slotbound.exe").is_file() and (candidate / "lua51.dll").is_file():
-                return candidate
+                return candidate.resolve()
     running = running_directory()
     if running and (running / "lua51.dll").is_file():
-        return running
+        return running.resolve()
     for library in steam_roots():
         manifest = library / ("steamapps/appmanifest_" + APP_ID + ".acf")
         if manifest.is_file():
@@ -107,7 +107,7 @@ def find_game_directory():
             if match:
                 candidate = library / "steamapps/common" / match[1]
                 if (candidate / "Slotbound.exe").is_file() and (candidate / "lua51.dll").is_file():
-                    return candidate
+                    return candidate.resolve()
     return None
 
 
